@@ -51,3 +51,25 @@ export function getRandomColor() {
   const hue = 290 + Math.random() * 260;
   return "hsl(" + hue + ", 100%, 60%)";
 }
+
+export function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export function randomChoice(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+export function weightedRandomChoice(items, weights) {
+  let totalWeight = weights.reduce((a, b) => a + b, 0);
+  let random = Math.random() * totalWeight;
+
+  for (let i = 0; i < items.length; i++) {
+    random -= weights[i];
+    if (random <= 0) {
+      return items[i];
+    }
+  }
+
+  return items[items.length - 1];
+}

@@ -16,18 +16,54 @@ export class NeuralNetwork {
     return outputs;
   }
 
+  static crossover(network1, network2) {
+    const offspring = JSON.parse(JSON.stringify(network1));
+
+    for (let i = 0; i < offspring.levels.length; i++) {
+      const level = offspring.levels[i];
+      const parent2Level = network2.levels[i];
+
+      // Crossover weights
+      for (let j = 0; j < level.weights.length; j++) {
+        for (let k = 0; k < level.weights[j].length; k++) {
+          // 50% chance to take from parent2
+          if (Math.random() > 0.5) {
+            level.weights[j][k] = parent2Level.weights[j][k];
+          }
+        }
+      }
+
+      // Crossover biases
+      for (let j = 0; j < level.biases.length; j++) {
+        if (Math.random() > 0.5) {
+          level.biases[j] = parent2Level.biases[j];
+        }
+      }
+    }
+
+    return offspring;
+  }
+
   static mutate(network, amount = 1) {
     network.levels.forEach((level) => {
       for (let i = 0; i < level.biases.length; i++) {
-        level.biases[i] = lerp(level.biases[i], Math.random() * 2 - 1, amount);
+        // More intelligent mutation: sometimes large, sometimes small changes
+        if (Math.random() < 0.1) {
+          // 10% chance: big mutation
+          level.biases[i] += (Math.random() * 2 - 1) * amount * 2;
+        } else if (Math.random() < 0.3) {
+          // 20% chance: small mutation
+          level.biases[i] += (Math.random() * 2 - 1) * amount * 0.5;
+        }
+        // 70% chance: no mutation to this bias
       }
       for (let i = 0; i < level.weights.length; i++) {
-        for (let j = 0; j < level.weights[i].lengtj; j++) {
-          level.weights[i][j] = lerp(
-            level.weights[i][j],
-            Math.random() * 2 - 1,
-            amount
-          );
+        for (let j = 0; j < level.weights[i].length; j++) {
+          if (Math.random() < 0.1) {
+            level.weights[i][j] += (Math.random() * 2 - 1) * amount * 2;
+          } else if (Math.random() < 0.3) {
+            level.weights[i][j] += (Math.random() * 2 - 1) * amount * 0.5;
+          }
         }
       }
     });

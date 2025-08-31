@@ -41,6 +41,13 @@ function updateStats() {
   const activeCars = cars.filter((car) => !car.damaged).length;
   document.getElementById("activeCars").textContent = activeCars;
 
+  // Calculate and display best fitness
+  if (cars.length > 0) {
+    const bestFitness = Math.max(...cars.map((car) => calculateFitness(car)));
+    document.getElementById("bestFitness").textContent =
+      Math.round(bestFitness);
+  }
+
   const progressElement = document.getElementById("progressIndicator");
   if (progressElement) {
     const timeSinceProgress = performance.now() - lastProgressTime;
@@ -108,6 +115,36 @@ function generateCars(N) {
   return cars;
 }
 
+function calculateFitness(car) {
+  // Base fitness on distance traveled (further = better)
+  let fitness = -car.y;
+
+  // Bonus for speed (faster = better)
+  fitness += car.speed * 10;
+
+  // Penalty for crashing early
+  if (car.damaged) {
+    fitness *= 0.5;
+  }
+
+  return Math.max(0.1, fitness); // Ensure minimal fitness
+}
+
+function selectParent(cars, probabilities) {
+  let random = Math.random();
+  let cumulativeProbability = 0;
+
+  for (let i = 0; i < cars.length; i++) {
+    cumulativeProbability += probabilities[i];
+    if (random <= cumulativeProbability) {
+      return cars[i];
+    }
+  }
+
+  // Fallback: return the last car
+  return cars[cars.length - 1];
+}
+
 function animate(time) {
   if (!isPaused) {
     // Track generation time (only for the first frame of each speed step)
@@ -148,30 +185,56 @@ function animate(time) {
       timeSinceProgress > noProgressTimeout; // No progress for too long
 
     if (shouldEndGeneration) {
-      // Save the best brain before creating new generation
-      const bestBrain = bestCar.brain;
+      // Calculate fitness for all cars
+      const fitnessScores = cars.map((car) => calculateFitness(car));
+      const totalFitness = fitnessScores.reduce((sum, score) => sum + score, 0);
+
+      // Normalize fitness to probabilities
+      const selectionProbabilities = fitnessScores.map(
+        (score) => score / totalFitness
+      );
 
       // Create new generation
       for (let i = 0; i < cars.length; i++) {
-        // Reset car position and state
+        // Reset car
         cars[i].y = 100;
         cars[i].damaged = false;
         cars[i].speed = 0;
         cars[i].angle = 0;
 
-        // For the first car, keep the best brain unchanged
+        // Always keep the best performer unchanged (elitism)
         if (i === 0) {
-          cars[i].brain = bestBrain;
+          cars[i].brain = JSON.parse(JSON.stringify(bestCar.brain));
+          continue;
+        }
+
+        // Select parents based on fitness
+        const parent1 = selectParent(cars, selectionProbabilities);
+        let parent2 = selectParent(cars, selectionProbabilities);
+
+        // Ensure we have two different parents (unless only one car)
+        let attempts = 0;
+        while (parent2 === parent1 && attempts < 10 && cars.length > 1) {
+          parent2 = selectParent(cars, selectionProbabilities);
+          attempts++;
+        }
+
+        // Create offspring through crossover
+        if (parent1 && parent2) {
+          cars[i].brain = NeuralNetwork.crossover(parent1.brain, parent2.brain);
+
+          // Mutate the offspring
+          NeuralNetwork.mutate(cars[i].brain, 0.1);
         } else {
-          // For other cars, mutate the best brain
-          cars[i].brain = JSON.parse(JSON.stringify(bestBrain)); // Deep copy
-          NeuralNetwork.mutate(cars[i].brain, 0.1); // Mutate with 10% rate
+          // Fallback: mutate the best car
+          cars[i].brain = JSON.parse(JSON.stringify(bestCar.brain));
+          NeuralNetwork.mutate(cars[i].brain, 0.2);
         }
       }
 
       generation++;
-      bestDistance = 0; // Reset best distance for new generation
-      generationStartTime = 0; // Reset for next generation
+      bestDistance = 0;
+      generationStartTime = 0;
     }
   }
 
