@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  background: darkgray;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Changed from center to flex-start */
+  height: 100vh;
+  padding: 10px; /* Added some padding */
+  box-sizing: border-box;
+}
+
+#container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px; /* Space between elements */
+  height: 100%;
+}
+
+#carCanvas {
+  background: lightgray;
+  border: 2px solid black;
+  height: 100%; /* Full height */
+}
+
+#verticalButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between buttons */
+  justify-content: center;
+  height: 100%;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px; /* Larger padding for better touch targets */
+  margin: 0; /* Removed margin since we're using gap */
+  cursor: pointer;
+  background: lightgray;
+  font-size: 16px; /* Larger font size */
+}
+
+button:hover {
+  background: blue;
+  color: white;
+}
+
+#networkCanvas {
+  background: black;
+  border: 2px solid white;
+  height: 100%; /* Full height */
+}
