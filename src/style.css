@@ -1,3 +1,45 @@
+#controlPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  height: 100%;
+  padding: 0 10px;
+}
+
+#statsPanel {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+#statsPanel h3 {
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+#statsPanel div {
+  margin: 5px 0;
+}
+
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  color: white;
+}
+
+.slider-container label {
+  font-size: 14px;
+}
+
+#speedSlider {
+  width: 100%;
+}
+
 body {
   margin: 0;
   background: darkgray;

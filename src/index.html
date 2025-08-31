@@ -13,9 +13,26 @@
   <body>
     <div id="container">
       <canvas id="carCanvas"></canvas>
-      <div id="verticalButtons">
-        <button id="saveButton">💾</button>
-        <button id="discardButton">🗑️</button>
+      <div id="controlPanel">
+        <div id="verticalButtons">
+          <button id="saveButton">💾 Save</button>
+          <button id="discardButton">🗑️ Discard</button>
+          <button id="pauseButton">⏸️ Pause</button>
+          <div class="slider-container">
+            <label for="speedSlider">Speed:</label>
+            <input type="range" id="speedSlider" min="1" max="10" value="1" />
+            <span id="speedValue">1x</span>
+          </div>
+        </div>
+        <div id="statsPanel">
+          <h3>Training Stats</h3>
+          <div>Generation: <span id="generationCounter">1</span></div>
+          <div>
+            Progress: <span id="progressIndicator">Making progress</span>
+          </div>
+          <div>Best Distance: <span id="bestDistance">0</span></div>
+          <div>Active Cars: <span id="activeCars">100</span></div>
+        </div>
       </div>
       <canvas id="networkCanvas"></canvas>
     </div>
