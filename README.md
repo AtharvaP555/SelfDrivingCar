@@ -23,7 +23,7 @@ A sophisticated simulation of self-driving cars using neural networks implemente
 
 ## 🚀 Live Demo
 
-Try it here\!
+[![Live Demo](https://img.shields.io/badge/Demo-Live%20Simulation-green)](https://atharvap555.github.io/SelfDrivingCar/)
 
 ---
 
