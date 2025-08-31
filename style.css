@@ -1,0 +1,95 @@
+#controlPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  height: 100%;
+  padding: 0 10px;
+}
+
+#statsPanel {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+#statsPanel h3 {
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+#statsPanel div {
+  margin: 5px 0;
+}
+
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  color: white;
+}
+
+.slider-container label {
+  font-size: 14px;
+}
+
+#speedSlider {
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  background: darkgray;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Changed from center to flex-start */
+  height: 100vh;
+  padding: 10px; /* Added some padding */
+  box-sizing: border-box;
+}
+
+#container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px; /* Space between elements */
+  height: 100%;
+}
+
+#carCanvas {
+  background: lightgray;
+  border: 2px solid black;
+  height: 100%; /* Full height */
+}
+
+#verticalButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between buttons */
+  justify-content: center;
+  height: 100%;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px; /* Larger padding for better touch targets */
+  margin: 0; /* Removed margin since we're using gap */
+  cursor: pointer;
+  background: lightgray;
+  font-size: 16px; /* Larger font size */
+}
+
+button:hover {
+  background: blue;
+  color: white;
+}
+
+#networkCanvas {
+  background: black;
+  border: 2px solid white;
+  height: 100%; /* Full height */
+}
