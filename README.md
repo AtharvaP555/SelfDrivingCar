@@ -2,6 +2,11 @@
 
 A sophisticated simulation of self-driving cars using neural networks implemented entirely from scratch in JavaScript. This project demonstrates how artificial intelligence can learn to navigate roads and avoid obstacles through evolutionary algorithms.
 
+![Status](https://img.shields.io/badge/Status-Functional-success)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow)
+![AI](https://img.shields.io/badge/AI-Neural%20Network-blueviolet)
+![License](https://img.shields.io/badge/License-MIT-green)
+
 ---
 
 ## 🌟 Features
@@ -18,7 +23,7 @@ A sophisticated simulation of self-driving cars using neural networks implemente
 
 ## 🚀 Live Demo
 
-Try it here\! - Note: Add your deployment link once hosted
+Try it here\!
 
 ---
 
@@ -56,7 +61,7 @@ Cars use ray-casting to detect:
 ### Clone the repository
 
 ```bash
-git clone https://github.com/your-username/self-driving-car.git
+git clone https://github.com/AtharvaP555/SelfDrivingCar.git
 cd self-driving-car
 ```
 
@@ -194,7 +199,7 @@ Contributions are welcome\! Please feel free to submit a Pull Request.
 
 ## 📜 License
 
-This project is licensed under the MIT License - see the `LICENSE.md` file for details.
+This project is licensed under the MIT License - see the `LICENSE` file for details.
 
 ---
 
